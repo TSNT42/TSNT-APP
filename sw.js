@@ -1,4 +1,4 @@
-const CACHE_NAME = "tsnt-app-v1";
+const CACHE_NAME = "tsnt-app-v2";
 
 const FICHIERS_A_METTRE_EN_CACHE = [
     "./",
