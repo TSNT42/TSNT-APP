@@ -17,7 +17,7 @@
 
     <meta
         name="description"
-        content="Application mobile de l'association Tous Solidaires Néo-Tuileries"
+        content="Application officielle de Tous Solidaires Néo-Tuileries"
     >
 
     <link
@@ -25,644 +25,468 @@
         href="manifest.json"
     >
 
+    <title>TSNT</title>
+
     <link
         rel="stylesheet"
         href="style.css"
     >
-
-    <title>
-        TSNT
-    </title>
 
 </head>
 
 
 <body>
 
-
-    <!-- ============================== -->
-    <!-- EN-TÊTE -->
-    <!-- ============================== -->
-
-    <header class="top-header">
-
-        <div class="header-content">
-
-            <div class="header-logo">
-                🤝
-            </div>
-
-            <div>
-
-                <h1>
-                    TSNT
-                </h1>
-
-                <p>
-                    Tous Solidaires Néo-Tuileries
-                </p>
-
-            </div>
-
-        </div>
-
-    </header>
+    <div class="app">
 
 
-    <!-- ============================== -->
-    <!-- CONTENU PRINCIPAL -->
-    <!-- ============================== -->
+        <!-- HEADER -->
 
-    <main id="app">
+        <header class="header">
 
+            <div class="logo">
 
-        <!-- ============================== -->
-        <!-- PAGE ACCUEIL -->
-        <!-- ============================== -->
-
-        <section
-            id="page-accueil"
-            class="page active"
-        >
-
-            <div class="hero">
-
-                <p class="hero-small">
-                    PROCHAINE ACTIVITÉ
-                </p>
-
-                <h2 id="prochaine-activite-titre">
-                    Chargement...
-                </h2>
-
-                <div
-                    id="prochaine-activite-infos"
-                    class="hero-infos"
-                >
+                <div class="logo-icon">
+                    🤝
                 </div>
 
-                <button
-                    class="primary-button"
-                    onclick="ouvrirInscription()"
-                >
-                    📝 S'inscrire
-                </button>
+                <div>
 
-            </div>
-
-
-            <!-- ACTIVITÉS -->
-
-            <section class="card">
-
-                <div class="card-icon">
-                    📅
-                </div>
-
-                <div class="card-content">
-
-                    <h3>
-                        Les activités
-                    </h3>
+                    <h1>
+                        TSNT
+                    </h1>
 
                     <p>
-                        Découvrez toutes les activités et événements proposés par TSNT.
+                        Tous Solidaires Néo-Tuileries
                     </p>
 
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENU -->
+
+        <main class="content">
+
+
+            <!-- ACCUEIL -->
+
+            <section
+                id="page-accueil"
+                class="page active-page"
+            >
+
+
+                <section class="hero">
+
+                    <span class="badge">
+                        📅 PROCHAINE ACTIVITÉ
+                    </span>
+
+
+                    <h2
+                        id="prochaine-activite-titre"
+                    >
+                        Chargement...
+                    </h2>
+
+
+                    <p
+                        id="prochaine-activite-date"
+                        class="event-info"
+                    >
+                    </p>
+
+
+                    <p
+                        id="prochaine-activite-lieu"
+                        class="event-info"
+                    >
+                    </p>
+
+
                     <button
+                        id="prochaine-activite-bouton"
                         class="primary-button"
-                        onclick="afficherPage('activites')"
+                        onclick="ouvrirPage('activites')"
                     >
                         Voir les activités
                     </button>
 
+                </section>
+
+
+
+                <section class="card">
+
+                    <div class="card-icon">
+                        📅
+                    </div>
+
+                    <div class="card-content">
+
+                        <h3>
+                            Nos activités
+                        </h3>
+
+
+                        <p>
+                            Découvrez les activités et
+                            événements proposés par TSNT.
+                        </p>
+
+
+                        <button
+                            class="secondary-button"
+                            onclick="ouvrirPage('activites')"
+                        >
+                            Voir les activités
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="card">
+
+                    <div class="card-icon">
+                        🤝
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+                            Rejoindre TSNT
+                        </h3>
+
+
+                        <p>
+                            Rejoignez l'association et
+                            participez à la vie du quartier.
+                        </p>
+
+
+                        <button
+                            class="secondary-button"
+                            onclick="ouvrirPage('adhesion')"
+                        >
+                            Adhérer
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- INSTALLATION APPLICATION -->
+
+                <section
+                    class="card"
+                    id="carte-installation"
+                >
+
+                    <div class="card-icon">
+                        📱
+                    </div>
+
+                    <div class="card-content">
+
+                        <h3>
+                            L'application TSNT
+                        </h3>
+
+                        <p>
+                            Retrouvez facilement les activités
+                            et les actualités de l'association
+                            directement sur votre téléphone.
+                        </p>
+
+                        <button
+                            id="bouton-installation"
+                            class="primary-button"
+                            onclick="installerApplication()"
+                        >
+                            📲 Ajouter TSNT à mon écran d'accueil
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="about">
+
+                    <h3>
+                        🏠 À propos de TSNT
+                    </h3>
+
+
+                    <p>
+                        Une association créée pour faire
+                        vivre le quartier des Tuileries
+                        à Mably, créer du lien et proposer
+                        des activités pour tous.
+                    </p>
+
+                </section>
+
+            </section>
+
+
+
+            <!-- ACTIVITÉS -->
+
+            <section
+                id="page-activites"
+                class="page"
+            >
+
+                <h2>
+                    📅 Activités
+                </h2>
+
+
+                <p class="page-intro">
+
+                    Retrouvez toutes les activités
+                    et événements de TSNT.
+
+                </p>
+
+
+                <div id="liste-activites">
+
+                    <p class="page-intro">
+                        Chargement des activités...
+                    </p>
+
                 </div>
 
             </section>
+
 
 
             <!-- ADHÉSION -->
 
-            <section class="card">
-
-                <div class="card-icon">
-                    💚
-                </div>
-
-                <div class="card-content">
-
-                    <h3>
-                        Devenir adhérent
-                    </h3>
-
-                    <p>
-                        Rejoignez Tous Solidaires Néo-Tuileries et participez à la vie du quartier.
-                    </p>
-
-                    <button
-                        class="primary-button"
-                        onclick="ouvrirAdhesion()"
-                    >
-                        Adhérer à TSNT
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- INSTALLATION APPLICATION -->
-
             <section
-                class="card"
-                id="carte-installation"
+                id="page-adhesion"
+                class="page"
             >
 
-                <div class="card-icon">
-                    📱
-                </div>
-
-                <div class="card-content">
-
-                    <h3>
-                        L'application TSNT
-                    </h3>
-
-                    <p>
-                        Retrouvez facilement les activités et les actualités de l'association directement sur votre téléphone.
-                    </p>
-
-                    <button
-                        id="bouton-installation"
-                        class="primary-button"
-                        onclick="installerApplication()"
-                        style="display: none;"
-                    >
-                        📲 Ajouter TSNT à mon écran d'accueil
-                    </button>
-
-                </div>
-
-            </section>
+                <h2>
+                    🤝 Adhérer à TSNT
+                </h2>
 
 
-            <!-- À PROPOS -->
+                <p class="page-intro">
 
-            <section class="card">
+                    Rejoignez Tous Solidaires
+                    Néo-Tuileries.
 
-                <div class="card-icon">
-                    🤝
-                </div>
-
-                <div class="card-content">
-
-                    <h3>
-                        À propos de TSNT
-                    </h3>
-
-                    <p>
-                        Une association locale au service des habitants des Tuileries et de Mably.
-                    </p>
-
-                    <button
-                        class="secondary-button"
-                        onclick="ouvrirPageSite('qui-sommes-nous')"
-                    >
-                        Découvrir l'association
-                    </button>
-
-                </div>
-
-            </section>
-
-        </section>
-
-
-        <!-- ============================== -->
-        <!-- PAGE ACTIVITÉS -->
-        <!-- ============================== -->
-
-        <section
-            id="page-activites"
-            class="page"
-        >
-
-            <div class="page-header">
-
-                <button
-                    class="back-button"
-                    onclick="afficherPage('accueil')"
-                >
-                    ←
-                </button>
-
-                <div>
-
-                    <h2>
-                        Activités
-                    </h2>
-
-                    <p>
-                        Tous les prochains rendez-vous TSNT
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="liste-activites"
-                class="activities-list"
-            >
-
-                <p class="loading">
-                    Chargement des activités...
                 </p>
 
-            </div>
 
-        </section>
-
-
-        <!-- ============================== -->
-        <!-- PAGE ADHÉSION -->
-        <!-- ============================== -->
-
-        <section
-            id="page-adhesion"
-            class="page"
-        >
-
-            <div class="page-header">
-
-                <button
-                    class="back-button"
-                    onclick="afficherPage('accueil')"
-                >
-                    ←
-                </button>
-
-                <div>
-
-                    <h2>
-                        Adhésion
-                    </h2>
-
-                    <p>
-                        Rejoignez TSNT
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <section class="card">
-
-                <div class="card-icon">
-                    💚
-                </div>
-
-                <div class="card-content">
+                <section class="activity-card">
 
                     <h3>
                         Pourquoi adhérer ?
                     </h3>
 
+
                     <p>
-                        Votre adhésion permet à l'association de développer des activités, des événements et des projets pour les habitants.
+
+                        Participer aux activités,
+                        soutenir l'association et
+                        contribuer à la vie du quartier.
+
                     </p>
+
 
                     <button
                         class="primary-button"
                         onclick="ouvrirAdhesion()"
                     >
-                        📝 Faire mon adhésion
+                        Adhérer maintenant
                     </button>
 
-                </div>
+                </section>
 
             </section>
 
 
-            <section class="card">
 
-                <div class="card-icon">
-                    💶
-                </div>
+            <!-- PLUS -->
 
-                <div class="card-content">
-
-                    <h3>
-                        Tarifs
-                    </h3>
-
-                    <p>
-                        La cotisation est calculée selon le quotient familial.
-                    </p>
-
-                    <button
-                        class="secondary-button"
-                        onclick="ouvrirPageSite('adhesion-reglement')"
-                    >
-                        Voir les tarifs
-                    </button>
-
-                </div>
-
-            </section>
-
-        </section>
-
-
-        <!-- ============================== -->
-        <!-- PAGE PLUS -->
-        <!-- ============================== -->
-
-        <section
-            id="page-plus"
-            class="page"
-        >
-
-            <div class="page-header">
+            <section
+                id="page-plus"
+                class="page"
+            >
 
                 <h2>
-                    Plus
+                    ☰ Plus
                 </h2>
 
-                <p>
-                    Retrouvez toutes les informations TSNT
-                </p>
-
-            </div>
-
-
-            <section class="menu-card">
 
                 <button
-                    onclick="ouvrirPageSite('qui-sommes-nous')"
+                    class="menu-card"
+                    onclick="ouvrirQuiSommesNous()"
                 >
-
-                    <span>
-                        🤝
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Qui sommes-nous ?
-                        </strong>
-
-                        <small>
-                            Découvrir l'association
-                        </small>
-
-                    </div>
-
-                    <span>
-                        ›
-                    </span>
-
+                    👥 Qui sommes-nous ?
                 </button>
 
 
                 <button
-                    onclick="ouvrirPageSite('adhesion-reglement')"
+                    class="menu-card"
+                    onclick="ouvrirReseauxSociaux()"
                 >
-
-                    <span>
-                        📄
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Adhésion & règlement
-                        </strong>
-
-                        <small>
-                            Tarifs et informations
-                        </small>
-
-                    </div>
-
-                    <span>
-                        ›
-                    </span>
-
+                    📱 Nos réseaux sociaux
                 </button>
 
 
                 <button
-                    onclick="ouvrirPageSite('activites-evenements')"
+                    class="menu-card"
+                    onclick="ouvrirContact()"
                 >
-
-                    <span>
-                        📅
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Activités & événements
-                        </strong>
-
-                        <small>
-                            Tous nos rendez-vous
-                        </small>
-
-                    </div>
-
-                    <span>
-                        ›
-                    </span>
-
+                    📩 Nous contacter
                 </button>
 
 
                 <button
-                    onclick="ouvrirPageSite('reseaux-sociaux')"
+                    class="menu-card"
+                    onclick="ouvrirSite()"
                 >
-
-                    <span>
-                        📱
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Réseaux sociaux
-                        </strong>
-
-                        <small>
-                            Facebook et Instagram
-                        </small>
-
-                    </div>
-
-                    <span>
-                        ›
-                    </span>
-
-                </button>
-
-
-                <button
-                    onclick="ouvrirPageSite('contact')"
-                >
-
-                    <span>
-                        ✉️
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Contact
-                        </strong>
-
-                        <small>
-                            Nous contacter
-                        </small>
-
-                    </div>
-
-                    <span>
-                        ›
-                    </span>
-
+                    🌐 Notre site internet
                 </button>
 
             </section>
 
-        </section>
+
+        </main>
 
 
-    </main>
+
+        <!-- MENU DU BAS -->
+
+        <nav class="bottom-nav">
 
 
-    <!-- ============================== -->
-    <!-- NAVIGATION BASSE -->
-    <!-- ============================== -->
+            <button
+                class="nav-item active"
+                id="nav-accueil"
+                onclick="ouvrirPage('accueil')"
+            >
 
-    <nav class="bottom-nav">
+                <span>
+                    🏠
+                </span>
 
+                <small>
+                    Accueil
+                </small>
 
-        <button
-            class="nav-button active"
-            id="nav-accueil"
-            onclick="afficherPage('accueil')"
-        >
-
-            <span>
-                🏠
-            </span>
-
-            <small>
-                Accueil
-            </small>
-
-        </button>
+            </button>
 
 
-        <button
-            class="nav-button"
-            id="nav-activites"
-            onclick="afficherPage('activites')"
-        >
 
-            <span>
-                📅
-            </span>
+            <button
+                class="nav-item"
+                id="nav-activites"
+                onclick="ouvrirPage('activites')"
+            >
 
-            <small>
-                Activités
-            </small>
-
-        </button>
+                <span>
+                    📅
+                </span>
 
 
-        <button
-            class="nav-button"
-            id="nav-adhesion"
-            onclick="afficherPage('adhesion')"
-        >
+                <small>
+                    Activités
+                </small>
 
-            <span>
-                💚
-            </span>
-
-            <small>
-                Adhésion
-            </small>
-
-        </button>
+            </button>
 
 
-        <button
-            class="nav-button"
-            id="nav-plus"
-            onclick="afficherPage('plus')"
-        >
 
-            <span>
-                ☰
-            </span>
+            <button
+                class="nav-item"
+                id="nav-adhesion"
+                onclick="ouvrirPage('adhesion')"
+            >
 
-            <small>
-                Plus
-            </small>
-
-        </button>
+                <span>
+                    🤝
+                </span>
 
 
-    </nav>
+                <small>
+                    Adhésion
+                </small>
+
+            </button>
 
 
-    <!-- ============================== -->
-    <!-- JAVASCRIPT -->
-    <!-- ============================== -->
+
+            <button
+                class="nav-item"
+                id="nav-plus"
+                onclick="ouvrirPage('plus')"
+            >
+
+                <span>
+                    ☰
+                </span>
+
+
+                <small>
+                    Plus
+                </small>
+
+            </button>
+
+
+        </nav>
+
+
+    </div>
+
+
 
     <script src="app.js"></script>
 
 
-    <!-- ============================== -->
-    <!-- SERVICE WORKER -->
-    <!-- ============================== -->
-
     <script>
 
-        if (
-            "serviceWorker"
-            in navigator
-        ) {
+        if ("serviceWorker" in navigator) {
 
             window.addEventListener(
                 "load",
                 function() {
 
-                    navigator.serviceWorker
-                        .register("./sw.js")
-                        .then(
-                            function() {
+                    navigator.serviceWorker.register(
+                        "./sw.js"
+                    )
+                    .then(function() {
 
-                                console.log(
-                                    "Service Worker enregistré."
-                                );
-
-                            }
-                        )
-                        .catch(
-                            function(erreur) {
-
-                                console.error(
-                                    "Erreur Service Worker :",
-                                    erreur
-                                );
-
-                            }
+                        console.log(
+                            "Service worker TSNT activé."
                         );
+
+                    })
+                    .catch(function(error) {
+
+                        console.error(
+                            "Erreur service worker :",
+                            error
+                        );
+
+                    });
 
                 }
             );
@@ -670,7 +494,6 @@
         }
 
     </script>
-
 
 </body>
 
