@@ -1,0 +1,327 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f3f5;
+    color: #222;
+}
+
+
+.app {
+    max-width: 480px;
+    min-height: 100vh;
+    margin: auto;
+    background: white;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+
+/* HEADER */
+
+.header {
+    padding: 22px 20px;
+    border-bottom: 1px solid #eee;
+    background: white;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+
+.logo h1 {
+    font-size: 22px;
+    margin-bottom: 3px;
+}
+
+
+.logo p {
+    font-size: 12px;
+    color: #777;
+}
+
+
+/* CONTENU */
+
+.content {
+    padding: 18px;
+}
+
+
+/* PAGES */
+
+.page {
+    display: none;
+}
+
+
+.active-page {
+    display: block;
+}
+
+
+/* ACCUEIL */
+
+.hero {
+    background: #111;
+    color: white;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 18px;
+}
+
+
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    background: #333;
+    padding: 7px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+
+.hero h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+
+.event-info {
+    font-size: 14px;
+    margin-bottom: 7px;
+    color: #ddd;
+}
+
+
+/* BOUTONS */
+
+.primary-button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    color: #111;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+.secondary-button {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #111;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* CARTES */
+
+.card {
+    display: flex;
+    gap: 15px;
+    padding: 18px;
+    border: 1px solid #e8e8e8;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    background: white;
+}
+
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 13px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+
+.card-content h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+
+.card-content p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+}
+
+
+/* PRÉSENTATION */
+
+.about {
+    margin-top: 22px;
+    padding: 18px;
+    background: #f5f5f5;
+    border-radius: 18px;
+}
+
+
+.about h3 {
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+
+.about p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666;
+}
+
+
+/* ACTIVITÉS */
+
+.page-intro {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #666;
+    line-height: 1.5;
+}
+
+
+.activity-card {
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    background: white;
+}
+
+
+.activity-card h3 {
+    font-size: 20px;
+    margin: 12px 0;
+}
+
+
+.activity-card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+
+.activity-date {
+    font-size: 11px;
+    font-weight: bold;
+    color: #777;
+}
+
+
+/* MENU PLUS */
+
+.menu-card {
+    width: 100%;
+    padding: 18px;
+    margin-top: 12px;
+    border: 1px solid #e8e8e8;
+    border-radius: 15px;
+    background: white;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+/* MENU DU BAS */
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    height: 68px;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+}
+
+
+.nav-item {
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #777;
+    cursor: pointer;
+}
+
+
+.nav-item span {
+    font-size: 20px;
+}
+
+
+.nav-item small {
+    font-size: 10px;
+}
+
+
+.nav-item.active {
+    color: #111;
+    font-weight: bold;
+}
+
+
+/* ORDINATEUR */
+
+@media (min-width: 600px) {
+
+    body {
+        padding: 30px 0;
+    }
+
+
+    .app {
+        min-height: calc(100vh - 60px);
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    }
+
+}
