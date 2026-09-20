@@ -5,10 +5,26 @@
 }
 
 
+:root {
+    --vert-fonce: #245a38;
+    --vert: #4f9b63;
+    --vert-clair: #a8d936;
+    --orange: #c96a35;
+    --orange-clair: #e98a4c;
+    --creme: #fff7ec;
+    --fond: #f5f1e9;
+    --blanc: #ffffff;
+    --texte: #243128;
+    --gris: #68736c;
+    --bordure: #e5e0d7;
+}
+
+
 body {
     font-family: Arial, sans-serif;
-    background: #f2f3f5;
-    color: #222;
+    background: var(--fond);
+    color: var(--texte);
+    min-height: 100vh;
 }
 
 
@@ -16,60 +32,69 @@ body {
     max-width: 480px;
     min-height: 100vh;
     margin: auto;
-    background: white;
+    background: var(--blanc);
     position: relative;
-    padding-bottom: 80px;
+    padding-bottom: 82px;
+    overflow-x: hidden;
 }
 
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .header {
-    padding: 22px 20px;
-    border-bottom: 1px solid #eee;
-    background: white;
+    padding: 20px 20px 18px;
+    background: var(--vert-fonce);
+    color: white;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
 }
 
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
 }
 
 
 .logo-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: #111;
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    background: var(--creme);
+    color: var(--vert-fonce);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 }
 
 
 .logo h1 {
-    font-size: 22px;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
     margin-bottom: 3px;
 }
 
 
 .logo p {
-    font-size: 12px;
-    color: #777;
+    font-size: 11px;
+    color: #e6f0e8;
 }
 
 
-/* CONTENU */
+/* =========================
+   CONTENU
+========================= */
 
 .content {
     padding: 18px;
 }
 
-
-/* PAGES */
 
 .page {
     display: none;
@@ -81,234 +106,515 @@ body {
 }
 
 
-/* ACCUEIL */
+/* =========================
+   ACCUEIL
+========================= */
 
 .hero {
-    background: #111;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--vert-fonce),
+            var(--vert)
+        );
+
     color: white;
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 24px;
     margin-bottom: 18px;
+
+    box-shadow:
+        0 10px 25px rgba(36, 90, 56, 0.18);
+}
+
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    right: -45px;
+    bottom: -50px;
+
+    background: var(--vert-clair);
+
+    border-radius: 50%;
+
+    opacity: 0.8;
 }
 
 
 .badge {
+    position: relative;
+    z-index: 2;
+
     display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    background: #333;
-    padding: 7px 10px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    background: var(--orange);
+    color: white;
+
+    padding: 7px 11px;
     border-radius: 20px;
-    margin-bottom: 16px;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 0.4px;
 }
 
 
 .hero h2 {
-    font-size: 28px;
+    position: relative;
+    z-index: 2;
+
+    font-size: 27px;
+    line-height: 1.15;
+
     margin-bottom: 16px;
+
+    max-width: 330px;
 }
 
 
 .event-info {
+    position: relative;
+    z-index: 2;
+
     font-size: 14px;
     margin-bottom: 7px;
-    color: #ddd;
+
+    color: #edf5ef;
 }
 
-
-/* BOUTONS */
 
 .primary-button {
+    position: relative;
+    z-index: 3;
+
     margin-top: 15px;
+
     width: 100%;
-    padding: 13px;
+
+    padding: 14px;
+
     border: none;
-    border-radius: 12px;
-    background: white;
-    color: #111;
-    font-weight: bold;
+    border-radius: 13px;
+
+    background: var(--creme);
+    color: var(--vert-fonce);
+
+    font-weight: 800;
     font-size: 14px;
+
     cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 
-.secondary-button {
-    margin-top: 12px;
-    padding: 10px 14px;
-    border: none;
-    border-radius: 10px;
-    background: #111;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+.primary-button:active {
+    transform: scale(0.97);
 }
 
 
-/* CARTES */
+.primary-button:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================
+   CARTES ACCUEIL
+========================= */
 
 .card {
     display: flex;
     gap: 15px;
+
     padding: 18px;
-    border: 1px solid #e8e8e8;
-    border-radius: 18px;
+
+    border: 1px solid var(--bordure);
+    border-radius: 20px;
+
     margin-bottom: 14px;
+
     background: white;
+
+    box-shadow: 0 4px 14px rgba(40, 50, 40, 0.04);
 }
 
 
 .card-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 13px;
-    background: #f0f0f0;
+    width: 47px;
+    height: 47px;
+
+    border-radius: 14px;
+
+    background: var(--creme);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 22px;
+
     flex-shrink: 0;
+}
+
+
+.card:nth-of-type(2) .card-icon {
+    background: #edf7dc;
+}
+
+
+.card-content {
+    flex: 1;
 }
 
 
 .card-content h3 {
     font-size: 17px;
+
     margin-bottom: 7px;
+
+    color: var(--vert-fonce);
 }
 
 
 .card-content p {
     font-size: 13px;
+
     line-height: 1.5;
-    color: #666;
+
+    color: var(--gris);
 }
 
 
-/* PRÉSENTATION */
+.secondary-button {
+    margin-top: 12px;
+
+    padding: 10px 14px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: var(--orange);
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+
+.secondary-button:active {
+    transform: scale(0.96);
+}
+
+
+.secondary-button:hover {
+    background: var(--orange-clair);
+}
+
+
+/* =========================
+   À PROPOS
+========================= */
 
 .about {
     margin-top: 22px;
-    padding: 18px;
-    background: #f5f5f5;
-    border-radius: 18px;
+
+    padding: 19px;
+
+    background: var(--creme);
+
+    border-radius: 20px;
+
+    border: 1px solid #f0e4d5;
 }
 
 
 .about h3 {
     font-size: 16px;
+
     margin-bottom: 9px;
+
+    color: var(--vert-fonce);
 }
 
 
 .about p {
     font-size: 13px;
+
     line-height: 1.6;
-    color: #666;
+
+    color: var(--gris);
 }
 
 
-/* ACTIVITÉS */
+/* =========================
+   TITRES DE PAGE
+========================= */
+
+.page h2 {
+    color: var(--vert-fonce);
+
+    font-size: 25px;
+
+    margin-bottom: 7px;
+}
+
 
 .page-intro {
-    margin-top: 10px;
+    margin-top: 5px;
+
     margin-bottom: 20px;
-    color: #666;
+
+    color: var(--gris);
+
     line-height: 1.5;
+
+    font-size: 14px;
 }
 
+
+/* =========================
+   ACTIVITÉS
+========================= */
 
 .activity-card {
     padding: 20px;
-    border: 1px solid #e8e8e8;
-    border-radius: 18px;
+
+    border: 1px solid var(--bordure);
+
+    border-radius: 20px;
+
     margin-bottom: 15px;
+
     background: white;
+
+    box-shadow: 0 5px 16px rgba(40, 50, 40, 0.05);
 }
 
 
 .activity-card h3 {
+    color: var(--vert-fonce);
+
     font-size: 20px;
-    margin: 12px 0;
+
+    line-height: 1.2;
+
+    margin: 11px 0 13px;
 }
 
 
 .activity-card p {
-    color: #666;
+    color: var(--gris);
+
     font-size: 14px;
+
     line-height: 1.5;
+
     margin-bottom: 8px;
 }
 
 
 .activity-date {
+    display: inline-block;
+
     font-size: 11px;
-    font-weight: bold;
-    color: #777;
+
+    font-weight: 800;
+
+    color: white;
+
+    background: var(--orange);
+
+    padding: 6px 9px;
+
+    border-radius: 10px;
 }
 
 
-/* MENU PLUS */
+/* =========================
+   ADHÉSION
+========================= */
+
+#page-adhesion .activity-card {
+    background:
+        linear-gradient(
+            145deg,
+            #f4faea,
+            #ffffff
+        );
+
+    border-color: #dfeacb;
+}
+
+
+#page-adhesion .activity-card h3 {
+    color: var(--vert-fonce);
+}
+
+
+#page-adhesion .primary-button {
+    background: var(--orange);
+
+    color: white;
+}
+
+
+#page-adhesion .primary-button:hover {
+    background: var(--orange-clair);
+}
+
+
+/* =========================
+   MENU PLUS
+========================= */
 
 .menu-card {
     width: 100%;
-    padding: 18px;
+
+    padding: 17px;
+
     margin-top: 12px;
-    border: 1px solid #e8e8e8;
-    border-radius: 15px;
+
+    border: 1px solid var(--bordure);
+
+    border-radius: 16px;
+
     background: white;
+
     text-align: left;
+
     font-size: 15px;
+
+    font-weight: 700;
+
+    color: var(--vert-fonce);
+
     cursor: pointer;
+
+    box-shadow: 0 3px 10px rgba(40, 50, 40, 0.04);
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
 }
 
 
-/* MENU DU BAS */
+.menu-card:active {
+    transform: scale(0.98);
+}
+
+
+.menu-card:hover {
+    background: var(--creme);
+}
+
+
+/* =========================
+   MENU DU BAS
+========================= */
 
 .bottom-nav {
     position: fixed;
+
     bottom: 0;
     left: 50%;
+
     transform: translateX(-50%);
+
     width: 100%;
     max-width: 480px;
-    height: 68px;
-    background: white;
-    border-top: 1px solid #ddd;
+
+    height: 72px;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-top: 1px solid var(--bordure);
+
     display: flex;
+
     justify-content: space-around;
     align-items: center;
+
     z-index: 100;
+
+    box-shadow:
+        0 -5px 20px rgba(30, 40, 30, 0.06);
 }
 
 
 .nav-item {
     border: none;
+
     background: none;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
+    justify-content: center;
+
     gap: 4px;
-    color: #777;
+
+    color: #89918b;
+
     cursor: pointer;
+
+    min-width: 65px;
+
+    height: 58px;
+
+    border-radius: 14px;
+
+    transition:
+        color 0.15s ease,
+        background 0.15s ease;
 }
 
 
 .nav-item span {
     font-size: 20px;
+
+    line-height: 1;
 }
 
 
 .nav-item small {
     font-size: 10px;
+
+    font-weight: 600;
 }
 
 
 .nav-item.active {
-    color: #111;
+    color: var(--vert-fonce);
+
+    background: #edf6e9;
+
     font-weight: bold;
 }
 
 
-/* ORDINATEUR */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (min-width: 600px) {
 
@@ -319,9 +625,19 @@ body {
 
     .app {
         min-height: calc(100vh - 60px);
-        border-radius: 25px;
+
+        border-radius: 28px;
+
         overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+
+        box-shadow:
+            0 15px 45px rgba(30, 40, 30, 0.12);
+    }
+
+
+    .bottom-nav {
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
     }
 
 }
