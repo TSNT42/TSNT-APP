@@ -1,686 +1,113 @@
-var API_URL =
-    "https://script.google.com/macros/s/AKfycbxP3YtMQjf7trOAWgXEuRDikm8Qq-Qc2ZHHM2Ewtkj0IkwuWACU_PXUlPBrokqC24TA2A/exec";
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("Application TSNT chargée");
 
 
-var FORMULAIRE_INSCRIPTION =
-    "https://forms.gle/oKfhgG4H2fDA8mLH6";
+    /*
+     * =========================
+     * SERVICE WORKER
+     * =========================
+     */
 
+    if ("serviceWorker" in navigator) {
 
-var ID_QUESTION_ACTIVITE =
-    "913318224";
+        window.addEventListener("load", function () {
 
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(function (registration) {
 
-// ==============================
-// INSTALLATION DE L'APPLICATION
-// ==============================
+                    console.log(
+                        "Service Worker enregistré :",
+                        registration.scope
+                    );
 
-var deferredInstallPrompt = null;
+                })
+                .catch(function (error) {
 
+                    console.error(
+                        "Erreur Service Worker :",
+                        error
+                    );
 
-function estIOS() {
+                });
 
-    return (
-        /iphone|ipad|ipod/i.test(
-            navigator.userAgent
-        )
-        ||
-        (
-            navigator.platform === "MacIntel"
-            &&
-            navigator.maxTouchPoints > 1
-        )
-    );
-
-}
-
-
-function estDejaInstallee() {
-
-    return (
-        window.matchMedia(
-            "(display-mode: standalone)"
-        ).matches
-        ||
-        window.navigator.standalone === true
-    );
-
-}
-
-
-window.addEventListener(
-    "beforeinstallprompt",
-    function(event) {
-
-        event.preventDefault();
-
-        deferredInstallPrompt =
-            event;
-
-    }
-);
-
-
-window.addEventListener(
-    "appinstalled",
-    function() {
-
-        deferredInstallPrompt =
-            null;
-
-        masquerBoutonInstallation();
-
-    }
-);
-
-
-function masquerBoutonInstallation() {
-
-    var bouton =
-        document.getElementById(
-            "bouton-installation"
-        );
-
-    if (bouton) {
-
-        bouton.style.display =
-            "none";
-
-    }
-
-}
-
-
-function installerApplication() {
-
-    if (estDejaInstallee()) {
-
-        return;
+        });
 
     }
 
 
-    if (deferredInstallPrompt) {
+    /*
+     * =========================
+     * INSTALLATION PWA
+     * =========================
+     */
 
-        deferredInstallPrompt
-            .prompt();
-
-        deferredInstallPrompt
-            .userChoice
-            .then(function() {
-
-                deferredInstallPrompt =
-                    null;
-
-            });
-
-        return;
-
-    }
+    let deferredPrompt = null;
 
 
-    if (estIOS()) {
+    window.addEventListener(
+        "beforeinstallprompt",
+        function (event) {
 
-        alert(
-            "Pour ajouter TSNT à votre écran d'accueil :\n\n" +
-            "1. Appuyez sur le bouton Partager ⬆️\n" +
-            "2. Choisissez « Sur l'écran d'accueil »\n" +
-            "3. Appuyez sur « Ajouter »"
-        );
+            event.preventDefault();
 
-        return;
+            deferredPrompt = event;
 
-    }
-
-
-    alert(
-        "Pour installer TSNT, ouvrez le menu de votre navigateur puis choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil »."
-    );
-
-}
-
-
-// ==============================
-// NAVIGATION
-// ==============================
-
-function ouvrirPage(page) {
-
-    var pages =
-        document.querySelectorAll(
-            ".page"
-        );
-
-
-    pages.forEach(
-        function(element) {
-
-            element.classList.remove(
-                "active-page"
+            console.log(
+                "Installation de l'application disponible"
             );
 
         }
     );
 
 
-    var pageSelectionnee =
-        document.getElementById(
-            "page-" + page
-        );
+    window.addEventListener(
+        "appinstalled",
+        function () {
 
-
-    if (pageSelectionnee) {
-
-        pageSelectionnee.classList.add(
-            "active-page"
-        );
-
-    }
-
-
-    var boutons =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    boutons.forEach(
-        function(element) {
-
-            element.classList.remove(
-                "active"
+            console.log(
+                "TSNT a été installé sur l'appareil"
             );
+
+            deferredPrompt = null;
 
         }
     );
 
 
-    var bouton =
-        document.getElementById(
-            "nav-" + page
+    /*
+     * =========================
+     * LIENS DES CARTES
+     * =========================
+     */
+
+    const cards =
+        document.querySelectorAll(".card");
+
+
+    cards.forEach(function (card) {
+
+        card.addEventListener(
+            "click",
+            function (event) {
+
+                const href =
+                    card.getAttribute("href");
+
+
+                if (
+                    !href ||
+                    href === "#"
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
         );
-
-
-    if (bouton) {
-
-        bouton.classList.add(
-            "active"
-        );
-
-    }
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
 
     });
 
-}
-
-
-// ==============================
-// ADHÉSION
-// ==============================
-
-function ouvrirAdhesion() {
-
-    window.open(
-
-        "https://docs.google.com/forms/d/e/1FAIpQLSfGZ8C4W02WViwnMBeBYD4IjiuqvF2dbeVSd1F-tll72fcXVA/viewform?usp=header",
-
-        "_blank"
-
-    );
-
-}
-
-
-// ==============================
-// INSCRIPTION
-// ==============================
-
-function ouvrirInscription(activite) {
-
-    var lien =
-        FORMULAIRE_INSCRIPTION +
-        "?entry." +
-        ID_QUESTION_ACTIVITE +
-        "=" +
-        encodeURIComponent(
-            activite
-        );
-
-
-    window.open(
-
-        lien,
-
-        "_blank"
-
-    );
-
-}
-
-
-// ==============================
-// PAGES DU SITE
-// ==============================
-
-function ouvrirQuiSommesNous() {
-
-    window.open(
-
-        "https://sites.google.com/view/tsnt42/qui-sommes-nous",
-
-        "_blank"
-
-    );
-
-}
-
-
-function ouvrirReseauxSociaux() {
-
-    window.open(
-
-        "https://sites.google.com/view/tsnt42/nos-r%C3%A9seaux-sociaux",
-
-        "_blank"
-
-    );
-
-}
-
-
-function ouvrirContact() {
-
-    window.open(
-
-        "https://sites.google.com/view/tsnt42/nous-contacter",
-
-        "_blank"
-
-    );
-
-}
-
-
-function ouvrirSite() {
-
-    window.open(
-
-        "https://sites.google.com/view/tsnt42/",
-
-        "_blank"
-
-    );
-
-}
-
-
-// ==============================
-// PROCHAINE ACTIVITÉ
-// ==============================
-
-function chargerProchaineActivite() {
-
-    var titre =
-        document.getElementById(
-            "prochaine-activite-titre"
-        );
-
-
-    var date =
-        document.getElementById(
-            "prochaine-activite-date"
-        );
-
-
-    var lieu =
-        document.getElementById(
-            "prochaine-activite-lieu"
-        );
-
-
-    var bouton =
-        document.getElementById(
-            "prochaine-activite-bouton"
-        );
-
-
-    if (!titre) {
-
-        return;
-
-    }
-
-
-    fetch(API_URL)
-
-        .then(
-            function(response) {
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Erreur réseau"
-                    );
-
-                }
-
-
-                return response.json();
-
-            }
-        )
-
-        .then(
-            function(data) {
-
-                if (
-                    !data.disponible ||
-                    !data.activites ||
-                    data.activites.length === 0
-                ) {
-
-                    titre.textContent =
-                        "Aucune activité prévue";
-
-
-                    date.textContent =
-                        "📅 Revenez bientôt pour découvrir les prochaines activités.";
-
-
-                    lieu.textContent =
-                        "";
-
-
-                    bouton.style.display =
-                        "none";
-
-
-                    return;
-
-                }
-
-
-                var activite =
-                    data.activites[0];
-
-
-                titre.textContent =
-                    activite.titre;
-
-
-                date.textContent =
-                    "📅 " +
-                    activite.debut;
-
-
-                lieu.textContent =
-                    activite.lieu
-                        ? "📍 " +
-                          activite.lieu
-                        : "";
-
-
-                bouton.style.display =
-                    "block";
-
-            }
-        )
-
-        .catch(
-            function(error) {
-
-                console.error(
-                    "Erreur calendrier :",
-                    error
-                );
-
-
-                titre.textContent =
-                    "Impossible de charger l'activité";
-
-
-                date.textContent =
-                    "Vérifiez votre connexion.";
-
-
-                lieu.textContent =
-                    "";
-
-
-                bouton.style.display =
-                    "none";
-
-            }
-        );
-
-}
-
-
-// ==============================
-// LISTE DES ACTIVITÉS
-// ==============================
-
-function chargerActivites() {
-
-    var liste =
-        document.getElementById(
-            "liste-activites"
-        );
-
-
-    if (!liste) {
-
-        return;
-
-    }
-
-
-    liste.innerHTML =
-        "<p class='page-intro'>" +
-        "Chargement des activités..." +
-        "</p>";
-
-
-    fetch(API_URL)
-
-        .then(
-            function(response) {
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Erreur réseau"
-                    );
-
-                }
-
-
-                return response.json();
-
-            }
-        )
-
-        .then(
-            function(data) {
-
-                liste.innerHTML =
-                    "";
-
-
-                if (
-                    !data.disponible ||
-                    !data.activites ||
-                    data.activites.length === 0
-                ) {
-
-                    liste.innerHTML =
-                        "<section class='activity-card'>" +
-
-                        "<h3>" +
-                        "Aucune activité prévue" +
-                        "</h3>" +
-
-                        "<p>" +
-                        "Les prochaines activités " +
-                        "seront bientôt disponibles." +
-                        "</p>" +
-
-                        "</section>";
-
-
-                    return;
-
-                }
-
-
-                data.activites.forEach(
-                    function(activite) {
-
-                        var carte =
-                            document.createElement(
-                                "section"
-                            );
-
-
-                        carte.className =
-                            "activity-card";
-
-
-                        var html =
-
-                            "<span class='activity-date'>" +
-
-                            "📅 " +
-
-                            activite.debut +
-
-                            "</span>" +
-
-
-                            "<h3>" +
-
-                            activite.titre +
-
-                            "</h3>";
-
-
-                        if (activite.lieu) {
-
-                            html +=
-
-                                "<p>" +
-
-                                "📍 " +
-
-                                activite.lieu +
-
-                                "</p>";
-
-                        }
-
-
-                        if (activite.description) {
-
-                            html +=
-
-                                "<p>" +
-
-                                activite.description +
-
-                                "</p>";
-
-                        }
-
-
-                        carte.innerHTML =
-                            html;
-
-
-                        var boutonInscription =
-                            document.createElement(
-                                "button"
-                            );
-
-
-                        boutonInscription.className =
-                            "primary-button";
-
-
-                        boutonInscription.textContent =
-                            "S'inscrire";
-
-
-                        boutonInscription.onclick =
-                            function() {
-
-                                ouvrirInscription(
-                                    activite.titre
-                                );
-
-                            };
-
-
-                        carte.appendChild(
-                            boutonInscription
-                        );
-
-
-                        liste.appendChild(
-                            carte
-                        );
-
-                    }
-                );
-
-            }
-        )
-
-        .catch(
-            function(error) {
-
-                console.error(
-                    "Erreur activités :",
-                    error
-                );
-
-
-                liste.innerHTML =
-
-                    "<section class='activity-card'>" +
-
-                    "<h3>" +
-                    "Erreur de chargement" +
-                    "</h3>" +
-
-                    "<p>" +
-                    "Impossible de récupérer les activités pour le moment." +
-                    "</p>" +
-
-                    "</section>";
-
-            }
-        );
-
-}
-
-
-// ==============================
-// INITIALISATION
-// ==============================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        chargerProchaineActivite();
-
-        chargerActivites();
-
-    }
-);
+});
