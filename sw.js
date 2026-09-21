@@ -1,4 +1,5 @@
-const CACHE_NAME = "tsnt-app-v2";
+const CACHE_NAME =
+    "tsnt-app-v3";
 
 
 const FILES_TO_CACHE = [
@@ -7,105 +8,157 @@ const FILES_TO_CACHE = [
 
     "./index.html",
 
-    "./style.css",
+    "./style.css?v=3",
 
-    "./app.js",
+    "./app.js?v=3",
 
-    "./manifest.json",
+    "./manifest.json?v=3",
 
-    "./logo.png?v=2"
+    "./logo.png?v=3"
 
 ];
 
+
+
+/* =========================
+   INSTALLATION
+========================= */
 
 self.addEventListener(
     "install",
     function (event) {
 
+
         event.waitUntil(
 
             caches
-                .open(CACHE_NAME)
-                .then(function (cache) {
+                .open(
+                    CACHE_NAME
+                )
 
-                    return cache.addAll(
-                        FILES_TO_CACHE
-                    );
+                .then(
+                    function (cache) {
 
-                })
+
+                        return cache.addAll(
+                            FILES_TO_CACHE
+                        );
+
+
+                    }
+                )
 
         );
 
+
         self.skipWaiting();
+
 
     }
 );
 
+
+
+/* =========================
+   ACTIVATION
+========================= */
 
 self.addEventListener(
     "activate",
     function (event) {
 
+
         event.waitUntil(
 
             caches
                 .keys()
-                .then(function (cacheNames) {
 
-                    return Promise.all(
+                .then(
+                    function (cacheNames) {
 
-                        cacheNames.map(
-                            function (cacheName) {
 
-                                if (
-                                    cacheName !==
-                                    CACHE_NAME
-                                ) {
+                        return Promise.all(
 
-                                    return caches.delete(
-                                        cacheName
-                                    );
+                            cacheNames.map(
+                                function (cacheName) {
+
+
+                                    if (
+                                        cacheName !==
+                                        CACHE_NAME
+                                    ) {
+
+
+                                        return caches.delete(
+                                            cacheName
+                                        );
+
+
+                                    }
+
+
+                                    return null;
+
 
                                 }
+                            )
 
-                                return null;
+                        );
 
-                            }
-                        )
 
-                    );
-
-                })
+                    }
+                )
 
         );
 
+
         self.clients.claim();
+
 
     }
 );
 
 
+
+/* =========================
+   REQUÊTES
+========================= */
+
 self.addEventListener(
     "fetch",
     function (event) {
 
+
         event.respondWith(
 
-            caches
-                .match(event.request)
-                .then(function (cachedResponse) {
+            fetch(
+                event.request
+            )
 
-                    if (cachedResponse) {
+                .then(
+                    function (response) {
 
-                        return cachedResponse;
+
+                        return response;
+
 
                     }
+                )
 
-                    return fetch(event.request);
+                .catch(
+                    function () {
 
-                })
+
+                        return caches.match(
+                            event.request
+                        );
+
+
+                    }
+                )
 
         );
+
 
     }
 );
