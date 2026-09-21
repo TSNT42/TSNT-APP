@@ -1,13 +1,20 @@
-const CACHE_NAME = "tsnt-app-v1";
+const CACHE_NAME = "tsnt-app-v2";
 
 
 const FILES_TO_CACHE = [
+
     "./",
+
     "./index.html",
+
     "./style.css",
+
     "./app.js",
+
     "./manifest.json",
-    "./logo.png"
+
+    "./logo.png?v=2"
+
 ];
 
 
@@ -60,6 +67,8 @@ self.addEventListener(
                                     );
 
                                 }
+
+                                return null;
 
                             }
                         )
