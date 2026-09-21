@@ -1,26 +1,28 @@
-const CACHE_NAME = "tsnt-app-v2";
+const CACHE_NAME = "tsnt-app-v1";
 
-const FICHIERS_A_METTRE_EN_CACHE = [
+
+const FILES_TO_CACHE = [
     "./",
     "./index.html",
     "./style.css",
     "./app.js",
-    "./manifest.json"
+    "./manifest.json",
+    "./logo.png"
 ];
 
 
 self.addEventListener(
     "install",
-    function(event) {
+    function (event) {
 
         event.waitUntil(
 
-            caches.open(CACHE_NAME)
-
-                .then(function(cache) {
+            caches
+                .open(CACHE_NAME)
+                .then(function (cache) {
 
                     return cache.addAll(
-                        FICHIERS_A_METTRE_EN_CACHE
+                        FILES_TO_CACHE
                     );
 
                 })
@@ -35,25 +37,26 @@ self.addEventListener(
 
 self.addEventListener(
     "activate",
-    function(event) {
+    function (event) {
 
         event.waitUntil(
 
-            caches.keys()
-
-                .then(function(cachesExistants) {
+            caches
+                .keys()
+                .then(function (cacheNames) {
 
                     return Promise.all(
 
-                        cachesExistants.map(
-                            function(cache) {
+                        cacheNames.map(
+                            function (cacheName) {
 
                                 if (
-                                    cache !== CACHE_NAME
+                                    cacheName !==
+                                    CACHE_NAME
                                 ) {
 
                                     return caches.delete(
-                                        cache
+                                        cacheName
                                     );
 
                                 }
@@ -75,17 +78,21 @@ self.addEventListener(
 
 self.addEventListener(
     "fetch",
-    function(event) {
+    function (event) {
 
         event.respondWith(
 
-            fetch(event.request)
+            caches
+                .match(event.request)
+                .then(function (cachedResponse) {
 
-                .catch(function() {
+                    if (cachedResponse) {
 
-                    return caches.match(
-                        event.request
-                    );
+                        return cachedResponse;
+
+                    }
+
+                    return fetch(event.request);
 
                 })
 
