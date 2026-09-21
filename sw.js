@@ -1,164 +1,95 @@
-const CACHE_NAME =
-    "tsnt-app-v3";
+const CACHE_NAME = "tsnt-app-v2";
 
-
-const FILES_TO_CACHE = [
-
+const FICHIERS_A_METTRE_EN_CACHE = [
     "./",
-
     "./index.html",
-
-    "./style.css?v=3",
-
-    "./app.js?v=3",
-
-    "./manifest.json?v=3",
-
-    "./logo.png?v=3"
-
+    "./style.css",
+    "./app.js",
+    "./manifest.json"
 ];
 
 
-
-/* =========================
-   INSTALLATION
-========================= */
-
 self.addEventListener(
     "install",
-    function (event) {
-
+    function(event) {
 
         event.waitUntil(
 
-            caches
-                .open(
-                    CACHE_NAME
-                )
+            caches.open(CACHE_NAME)
 
-                .then(
-                    function (cache) {
+                .then(function(cache) {
 
+                    return cache.addAll(
+                        FICHIERS_A_METTRE_EN_CACHE
+                    );
 
-                        return cache.addAll(
-                            FILES_TO_CACHE
-                        );
-
-
-                    }
-                )
+                })
 
         );
-
 
         self.skipWaiting();
 
-
     }
 );
 
-
-
-/* =========================
-   ACTIVATION
-========================= */
 
 self.addEventListener(
     "activate",
-    function (event) {
-
+    function(event) {
 
         event.waitUntil(
 
-            caches
-                .keys()
+            caches.keys()
 
-                .then(
-                    function (cacheNames) {
+                .then(function(cachesExistants) {
 
+                    return Promise.all(
 
-                        return Promise.all(
+                        cachesExistants.map(
+                            function(cache) {
 
-                            cacheNames.map(
-                                function (cacheName) {
+                                if (
+                                    cache !== CACHE_NAME
+                                ) {
 
-
-                                    if (
-                                        cacheName !==
-                                        CACHE_NAME
-                                    ) {
-
-
-                                        return caches.delete(
-                                            cacheName
-                                        );
-
-
-                                    }
-
-
-                                    return null;
-
+                                    return caches.delete(
+                                        cache
+                                    );
 
                                 }
-                            )
 
-                        );
+                            }
+                        )
 
+                    );
 
-                    }
-                )
+                })
 
         );
 
-
         self.clients.claim();
-
 
     }
 );
 
 
-
-/* =========================
-   REQUÊTES
-========================= */
-
 self.addEventListener(
     "fetch",
-    function (event) {
-
+    function(event) {
 
         event.respondWith(
 
-            fetch(
-                event.request
-            )
+            fetch(event.request)
 
-                .then(
-                    function (response) {
+                .catch(function() {
 
+                    return caches.match(
+                        event.request
+                    );
 
-                        return response;
-
-
-                    }
-                )
-
-                .catch(
-                    function () {
-
-
-                        return caches.match(
-                            event.request
-                        );
-
-
-                    }
-                )
+                })
 
         );
-
 
     }
 );
