@@ -1,643 +1,686 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+var API_URL =
+    "https://script.google.com/macros/s/AKfycbxP3YtMQjf7trOAWgXEuRDikm8Qq-Qc2ZHHM2Ewtkj0IkwuWACU_PXUlPBrokqC24TA2A/exec";
+
+
+var FORMULAIRE_INSCRIPTION =
+    "https://forms.gle/oKfhgG4H2fDA8mLH6";
+
+
+var ID_QUESTION_ACTIVITE =
+    "913318224";
+
+
+// ==============================
+// INSTALLATION DE L'APPLICATION
+// ==============================
+
+var deferredInstallPrompt = null;
+
+
+function estIOS() {
+
+    return (
+        /iphone|ipad|ipod/i.test(
+            navigator.userAgent
+        )
+        ||
+        (
+            navigator.platform === "MacIntel"
+            &&
+            navigator.maxTouchPoints > 1
+        )
+    );
+
 }
 
 
-:root {
-    --vert-fonce: #245a38;
-    --vert: #4f9b63;
-    --vert-clair: #a8d936;
-    --orange: #c96a35;
-    --orange-clair: #e98a4c;
-    --creme: #fff7ec;
-    --fond: #f5f1e9;
-    --blanc: #ffffff;
-    --texte: #243128;
-    --gris: #68736c;
-    --bordure: #e5e0d7;
+function estDejaInstallee() {
+
+    return (
+        window.matchMedia(
+            "(display-mode: standalone)"
+        ).matches
+        ||
+        window.navigator.standalone === true
+    );
+
 }
 
 
-body {
-    font-family: Arial, sans-serif;
-    background: var(--fond);
-    color: var(--texte);
-    min-height: 100vh;
-}
+window.addEventListener(
+    "beforeinstallprompt",
+    function(event) {
+
+        event.preventDefault();
+
+        deferredInstallPrompt =
+            event;
+
+    }
+);
 
 
-.app {
-    max-width: 480px;
-    min-height: 100vh;
-    margin: auto;
-    background: var(--blanc);
-    position: relative;
-    padding-bottom: 82px;
-    overflow-x: hidden;
-}
+window.addEventListener(
+    "appinstalled",
+    function() {
+
+        deferredInstallPrompt =
+            null;
+
+        masquerBoutonInstallation();
+
+    }
+);
 
 
-/* =========================
-   HEADER
-========================= */
+function masquerBoutonInstallation() {
 
-.header {
-    padding: 20px 20px 18px;
-    background: var(--vert-fonce);
-    color: white;
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
-}
-
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
-
-.logo-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 16px;
-    background: var(--creme);
-    color: var(--vert-fonce);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-}
-
-
-.logo h1 {
-    font-size: 23px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    margin-bottom: 3px;
-}
-
-
-.logo p {
-    font-size: 11px;
-    color: #e6f0e8;
-}
-
-
-/* =========================
-   CONTENU
-========================= */
-
-.content {
-    padding: 18px;
-}
-
-
-.page {
-    display: none;
-}
-
-
-.active-page {
-    display: block;
-}
-
-
-/* =========================
-   ACCUEIL
-========================= */
-
-.hero {
-    position: relative;
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--vert-fonce),
-            var(--vert)
+    var bouton =
+        document.getElementById(
+            "bouton-installation"
         );
 
-    color: white;
-    border-radius: 24px;
-    padding: 24px;
-    margin-bottom: 18px;
+    if (bouton) {
 
-    box-shadow:
-        0 10px 25px rgba(36, 90, 56, 0.18);
+        bouton.style.display =
+            "none";
+
+    }
+
 }
 
 
-.hero::after {
-    content: "";
-    position: absolute;
-    width: 130px;
-    height: 130px;
-    right: -45px;
-    bottom: -50px;
+function installerApplication() {
 
-    background: var(--vert-clair);
+    if (estDejaInstallee()) {
 
-    border-radius: 50%;
+        return;
 
-    opacity: 0.8;
-}
+    }
 
 
-.badge {
-    position: relative;
-    z-index: 2;
+    if (deferredInstallPrompt) {
 
-    display: inline-block;
+        deferredInstallPrompt
+            .prompt();
 
-    font-size: 10px;
-    font-weight: 800;
+        deferredInstallPrompt
+            .userChoice
+            .then(function() {
 
-    background: var(--orange);
-    color: white;
+                deferredInstallPrompt =
+                    null;
 
-    padding: 7px 11px;
-    border-radius: 20px;
+            });
 
-    margin-bottom: 15px;
+        return;
 
-    letter-spacing: 0.4px;
-}
+    }
 
 
-.hero h2 {
-    position: relative;
-    z-index: 2;
+    if (estIOS()) {
 
-    font-size: 27px;
-    line-height: 1.15;
-
-    margin-bottom: 16px;
-
-    max-width: 330px;
-}
-
-
-.event-info {
-    position: relative;
-    z-index: 2;
-
-    font-size: 14px;
-    margin-bottom: 7px;
-
-    color: #edf5ef;
-}
-
-
-.primary-button {
-    position: relative;
-    z-index: 3;
-
-    margin-top: 15px;
-
-    width: 100%;
-
-    padding: 14px;
-
-    border: none;
-    border-radius: 13px;
-
-    background: var(--creme);
-    color: var(--vert-fonce);
-
-    font-weight: 800;
-    font-size: 14px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
-}
-
-
-.primary-button:active {
-    transform: scale(0.97);
-}
-
-
-.primary-button:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-}
-
-
-/* =========================
-   CARTES ACCUEIL
-========================= */
-
-.card {
-    display: flex;
-    gap: 15px;
-
-    padding: 18px;
-
-    border: 1px solid var(--bordure);
-    border-radius: 20px;
-
-    margin-bottom: 14px;
-
-    background: white;
-
-    box-shadow: 0 4px 14px rgba(40, 50, 40, 0.04);
-}
-
-
-.card-icon {
-    width: 47px;
-    height: 47px;
-
-    border-radius: 14px;
-
-    background: var(--creme);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 22px;
-
-    flex-shrink: 0;
-}
-
-
-.card:nth-of-type(2) .card-icon {
-    background: #edf7dc;
-}
-
-
-.card-content {
-    flex: 1;
-}
-
-
-.card-content h3 {
-    font-size: 17px;
-
-    margin-bottom: 7px;
-
-    color: var(--vert-fonce);
-}
-
-
-.card-content p {
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    color: var(--gris);
-}
-
-
-.secondary-button {
-    margin-top: 12px;
-
-    padding: 10px 14px;
-
-    border: none;
-    border-radius: 11px;
-
-    background: var(--orange);
-
-    color: white;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-}
-
-
-.secondary-button:active {
-    transform: scale(0.96);
-}
-
-
-.secondary-button:hover {
-    background: var(--orange-clair);
-}
-
-
-/* =========================
-   À PROPOS
-========================= */
-
-.about {
-    margin-top: 22px;
-
-    padding: 19px;
-
-    background: var(--creme);
-
-    border-radius: 20px;
-
-    border: 1px solid #f0e4d5;
-}
-
-
-.about h3 {
-    font-size: 16px;
-
-    margin-bottom: 9px;
-
-    color: var(--vert-fonce);
-}
-
-
-.about p {
-    font-size: 13px;
-
-    line-height: 1.6;
-
-    color: var(--gris);
-}
-
-
-/* =========================
-   TITRES DE PAGE
-========================= */
-
-.page h2 {
-    color: var(--vert-fonce);
-
-    font-size: 25px;
-
-    margin-bottom: 7px;
-}
-
-
-.page-intro {
-    margin-top: 5px;
-
-    margin-bottom: 20px;
-
-    color: var(--gris);
-
-    line-height: 1.5;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   ACTIVITÉS
-========================= */
-
-.activity-card {
-    padding: 20px;
-
-    border: 1px solid var(--bordure);
-
-    border-radius: 20px;
-
-    margin-bottom: 15px;
-
-    background: white;
-
-    box-shadow: 0 5px 16px rgba(40, 50, 40, 0.05);
-}
-
-
-.activity-card h3 {
-    color: var(--vert-fonce);
-
-    font-size: 20px;
-
-    line-height: 1.2;
-
-    margin: 11px 0 13px;
-}
-
-
-.activity-card p {
-    color: var(--gris);
-
-    font-size: 14px;
-
-    line-height: 1.5;
-
-    margin-bottom: 8px;
-}
-
-
-.activity-date {
-    display: inline-block;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    color: white;
-
-    background: var(--orange);
-
-    padding: 6px 9px;
-
-    border-radius: 10px;
-}
-
-
-/* =========================
-   ADHÉSION
-========================= */
-
-#page-adhesion .activity-card {
-    background:
-        linear-gradient(
-            145deg,
-            #f4faea,
-            #ffffff
+        alert(
+            "Pour ajouter TSNT à votre écran d'accueil :\n\n" +
+            "1. Appuyez sur le bouton Partager ⬆️\n" +
+            "2. Choisissez « Sur l'écran d'accueil »\n" +
+            "3. Appuyez sur « Ajouter »"
         );
 
-    border-color: #dfeacb;
-}
+        return;
 
-
-#page-adhesion .activity-card h3 {
-    color: var(--vert-fonce);
-}
-
-
-#page-adhesion .primary-button {
-    background: var(--orange);
-
-    color: white;
-}
-
-
-#page-adhesion .primary-button:hover {
-    background: var(--orange-clair);
-}
-
-
-/* =========================
-   MENU PLUS
-========================= */
-
-.menu-card {
-    width: 100%;
-
-    padding: 17px;
-
-    margin-top: 12px;
-
-    border: 1px solid var(--bordure);
-
-    border-radius: 16px;
-
-    background: white;
-
-    text-align: left;
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    color: var(--vert-fonce);
-
-    cursor: pointer;
-
-    box-shadow: 0 3px 10px rgba(40, 50, 40, 0.04);
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-}
-
-
-.menu-card:active {
-    transform: scale(0.98);
-}
-
-
-.menu-card:hover {
-    background: var(--creme);
-}
-
-
-/* =========================
-   MENU DU BAS
-========================= */
-
-.bottom-nav {
-    position: fixed;
-
-    bottom: 0;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 100%;
-    max-width: 480px;
-
-    height: 72px;
-
-    background: rgba(255, 255, 255, 0.97);
-
-    border-top: 1px solid var(--bordure);
-
-    display: flex;
-
-    justify-content: space-around;
-    align-items: center;
-
-    z-index: 100;
-
-    box-shadow:
-        0 -5px 20px rgba(30, 40, 30, 0.06);
-}
-
-
-.nav-item {
-    border: none;
-
-    background: none;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 4px;
-
-    color: #89918b;
-
-    cursor: pointer;
-
-    min-width: 65px;
-
-    height: 58px;
-
-    border-radius: 14px;
-
-    transition:
-        color 0.15s ease,
-        background 0.15s ease;
-}
-
-
-.nav-item span {
-    font-size: 20px;
-
-    line-height: 1;
-}
-
-
-.nav-item small {
-    font-size: 10px;
-
-    font-weight: 600;
-}
-
-
-.nav-item.active {
-    color: var(--vert-fonce);
-
-    background: #edf6e9;
-
-    font-weight: bold;
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (min-width: 600px) {
-
-    body {
-        padding: 30px 0;
     }
 
 
-    .app {
-        min-height: calc(100vh - 60px);
-
-        border-radius: 28px;
-
-        overflow: hidden;
-
-        box-shadow:
-            0 15px 45px rgba(30, 40, 30, 0.12);
-    }
-
-
-    .bottom-nav {
-        border-bottom-left-radius: 28px;
-        border-bottom-right-radius: 28px;
-    }
+    alert(
+        "Pour installer TSNT, ouvrez le menu de votre navigateur puis choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil »."
+    );
 
 }
+
+
+// ==============================
+// NAVIGATION
+// ==============================
+
+function ouvrirPage(page) {
+
+    var pages =
+        document.querySelectorAll(
+            ".page"
+        );
+
+
+    pages.forEach(
+        function(element) {
+
+            element.classList.remove(
+                "active-page"
+            );
+
+        }
+    );
+
+
+    var pageSelectionnee =
+        document.getElementById(
+            "page-" + page
+        );
+
+
+    if (pageSelectionnee) {
+
+        pageSelectionnee.classList.add(
+            "active-page"
+        );
+
+    }
+
+
+    var boutons =
+        document.querySelectorAll(
+            ".nav-item"
+        );
+
+
+    boutons.forEach(
+        function(element) {
+
+            element.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    var bouton =
+        document.getElementById(
+            "nav-" + page
+        );
+
+
+    if (bouton) {
+
+        bouton.classList.add(
+            "active"
+        );
+
+    }
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+// ==============================
+// ADHÉSION
+// ==============================
+
+function ouvrirAdhesion() {
+
+    window.open(
+
+        "https://docs.google.com/forms/d/e/1FAIpQLSfGZ8C4W02WViwnMBeBYD4IjiuqvF2dbeVSd1F-tll72fcXVA/viewform?usp=header",
+
+        "_blank"
+
+    );
+
+}
+
+
+// ==============================
+// INSCRIPTION
+// ==============================
+
+function ouvrirInscription(activite) {
+
+    var lien =
+        FORMULAIRE_INSCRIPTION +
+        "?entry." +
+        ID_QUESTION_ACTIVITE +
+        "=" +
+        encodeURIComponent(
+            activite
+        );
+
+
+    window.open(
+
+        lien,
+
+        "_blank"
+
+    );
+
+}
+
+
+// ==============================
+// PAGES DU SITE
+// ==============================
+
+function ouvrirQuiSommesNous() {
+
+    window.open(
+
+        "https://sites.google.com/view/tsnt42/qui-sommes-nous",
+
+        "_blank"
+
+    );
+
+}
+
+
+function ouvrirReseauxSociaux() {
+
+    window.open(
+
+        "https://sites.google.com/view/tsnt42/nos-r%C3%A9seaux-sociaux",
+
+        "_blank"
+
+    );
+
+}
+
+
+function ouvrirContact() {
+
+    window.open(
+
+        "https://sites.google.com/view/tsnt42/nous-contacter",
+
+        "_blank"
+
+    );
+
+}
+
+
+function ouvrirSite() {
+
+    window.open(
+
+        "https://sites.google.com/view/tsnt42/",
+
+        "_blank"
+
+    );
+
+}
+
+
+// ==============================
+// PROCHAINE ACTIVITÉ
+// ==============================
+
+function chargerProchaineActivite() {
+
+    var titre =
+        document.getElementById(
+            "prochaine-activite-titre"
+        );
+
+
+    var date =
+        document.getElementById(
+            "prochaine-activite-date"
+        );
+
+
+    var lieu =
+        document.getElementById(
+            "prochaine-activite-lieu"
+        );
+
+
+    var bouton =
+        document.getElementById(
+            "prochaine-activite-bouton"
+        );
+
+
+    if (!titre) {
+
+        return;
+
+    }
+
+
+    fetch(API_URL)
+
+        .then(
+            function(response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erreur réseau"
+                    );
+
+                }
+
+
+                return response.json();
+
+            }
+        )
+
+        .then(
+            function(data) {
+
+                if (
+                    !data.disponible ||
+                    !data.activites ||
+                    data.activites.length === 0
+                ) {
+
+                    titre.textContent =
+                        "Aucune activité prévue";
+
+
+                    date.textContent =
+                        "📅 Revenez bientôt pour découvrir les prochaines activités.";
+
+
+                    lieu.textContent =
+                        "";
+
+
+                    bouton.style.display =
+                        "none";
+
+
+                    return;
+
+                }
+
+
+                var activite =
+                    data.activites[0];
+
+
+                titre.textContent =
+                    activite.titre;
+
+
+                date.textContent =
+                    "📅 " +
+                    activite.debut;
+
+
+                lieu.textContent =
+                    activite.lieu
+                        ? "📍 " +
+                          activite.lieu
+                        : "";
+
+
+                bouton.style.display =
+                    "block";
+
+            }
+        )
+
+        .catch(
+            function(error) {
+
+                console.error(
+                    "Erreur calendrier :",
+                    error
+                );
+
+
+                titre.textContent =
+                    "Impossible de charger l'activité";
+
+
+                date.textContent =
+                    "Vérifiez votre connexion.";
+
+
+                lieu.textContent =
+                    "";
+
+
+                bouton.style.display =
+                    "none";
+
+            }
+        );
+
+}
+
+
+// ==============================
+// LISTE DES ACTIVITÉS
+// ==============================
+
+function chargerActivites() {
+
+    var liste =
+        document.getElementById(
+            "liste-activites"
+        );
+
+
+    if (!liste) {
+
+        return;
+
+    }
+
+
+    liste.innerHTML =
+        "<p class='page-intro'>" +
+        "Chargement des activités..." +
+        "</p>";
+
+
+    fetch(API_URL)
+
+        .then(
+            function(response) {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Erreur réseau"
+                    );
+
+                }
+
+
+                return response.json();
+
+            }
+        )
+
+        .then(
+            function(data) {
+
+                liste.innerHTML =
+                    "";
+
+
+                if (
+                    !data.disponible ||
+                    !data.activites ||
+                    data.activites.length === 0
+                ) {
+
+                    liste.innerHTML =
+                        "<section class='activity-card'>" +
+
+                        "<h3>" +
+                        "Aucune activité prévue" +
+                        "</h3>" +
+
+                        "<p>" +
+                        "Les prochaines activités " +
+                        "seront bientôt disponibles." +
+                        "</p>" +
+
+                        "</section>";
+
+
+                    return;
+
+                }
+
+
+                data.activites.forEach(
+                    function(activite) {
+
+                        var carte =
+                            document.createElement(
+                                "section"
+                            );
+
+
+                        carte.className =
+                            "activity-card";
+
+
+                        var html =
+
+                            "<span class='activity-date'>" +
+
+                            "📅 " +
+
+                            activite.debut +
+
+                            "</span>" +
+
+
+                            "<h3>" +
+
+                            activite.titre +
+
+                            "</h3>";
+
+
+                        if (activite.lieu) {
+
+                            html +=
+
+                                "<p>" +
+
+                                "📍 " +
+
+                                activite.lieu +
+
+                                "</p>";
+
+                        }
+
+
+                        if (activite.description) {
+
+                            html +=
+
+                                "<p>" +
+
+                                activite.description +
+
+                                "</p>";
+
+                        }
+
+
+                        carte.innerHTML =
+                            html;
+
+
+                        var boutonInscription =
+                            document.createElement(
+                                "button"
+                            );
+
+
+                        boutonInscription.className =
+                            "primary-button";
+
+
+                        boutonInscription.textContent =
+                            "S'inscrire";
+
+
+                        boutonInscription.onclick =
+                            function() {
+
+                                ouvrirInscription(
+                                    activite.titre
+                                );
+
+                            };
+
+
+                        carte.appendChild(
+                            boutonInscription
+                        );
+
+
+                        liste.appendChild(
+                            carte
+                        );
+
+                    }
+                );
+
+            }
+        )
+
+        .catch(
+            function(error) {
+
+                console.error(
+                    "Erreur activités :",
+                    error
+                );
+
+
+                liste.innerHTML =
+
+                    "<section class='activity-card'>" +
+
+                    "<h3>" +
+                    "Erreur de chargement" +
+                    "</h3>" +
+
+                    "<p>" +
+                    "Impossible de récupérer les activités pour le moment." +
+                    "</p>" +
+
+                    "</section>";
+
+            }
+        );
+
+}
+
+
+// ==============================
+// INITIALISATION
+// ==============================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        chargerProchaineActivite();
+
+        chargerActivites();
+
+    }
+);
