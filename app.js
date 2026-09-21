@@ -1,113 +1,161 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-    console.log("Application TSNT chargée");
-
-
-    /*
-     * =========================
-     * SERVICE WORKER
-     * =========================
-     */
-
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener("load", function () {
-
-            navigator.serviceWorker
-                .register("./sw.js")
-                .then(function (registration) {
-
-                    console.log(
-                        "Service Worker enregistré :",
-                        registration.scope
-                    );
-
-                })
-                .catch(function (error) {
-
-                    console.error(
-                        "Erreur Service Worker :",
-                        error
-                    );
-
-                });
-
-        });
-
-    }
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    /*
-     * =========================
-     * INSTALLATION PWA
-     * =========================
-     */
-
-    let deferredPrompt = null;
+        console.log(
+            "Application TSNT chargée"
+        );
 
 
-    window.addEventListener(
-        "beforeinstallprompt",
-        function (event) {
 
-            event.preventDefault();
+        /*
+         * =========================
+         * SERVICE WORKER
+         * =========================
+         */
 
-            deferredPrompt = event;
-
-            console.log(
-                "Installation de l'application disponible"
-            );
-
-        }
-    );
+        if (
+            "serviceWorker"
+            in navigator
+        ) {
 
 
-    window.addEventListener(
-        "appinstalled",
-        function () {
-
-            console.log(
-                "TSNT a été installé sur l'appareil"
-            );
-
-            deferredPrompt = null;
-
-        }
-    );
+            window.addEventListener(
+                "load",
+                function () {
 
 
-    /*
-     * =========================
-     * LIENS DES CARTES
-     * =========================
-     */
+                    navigator.serviceWorker
+                        .register(
+                            "./sw.js?v=3"
+                        )
 
-    const cards =
-        document.querySelectorAll(".card");
+                        .then(
+                            function (registration) {
 
+                                console.log(
+                                    "Service Worker enregistré :",
+                                    registration.scope
+                                );
 
-    cards.forEach(function (card) {
+                            }
+                        )
 
-        card.addEventListener(
-            "click",
-            function (event) {
+                        .catch(
+                            function (error) {
 
-                const href =
-                    card.getAttribute("href");
+                                console.error(
+                                    "Erreur Service Worker :",
+                                    error
+                                );
 
+                            }
+                        );
 
-                if (
-                    !href ||
-                    href === "#"
-                ) {
-
-                    event.preventDefault();
 
                 }
+            );
+
+
+        }
+
+
+
+        /*
+         * =========================
+         * INSTALLATION PWA
+         * =========================
+         */
+
+        let deferredPrompt = null;
+
+
+        window.addEventListener(
+            "beforeinstallprompt",
+            function (event) {
+
+
+                event.preventDefault();
+
+
+                deferredPrompt = event;
+
+
+                console.log(
+                    "Installation de l'application disponible"
+                );
+
 
             }
         );
 
-    });
 
-});
+
+        window.addEventListener(
+            "appinstalled",
+            function () {
+
+
+                console.log(
+                    "TSNT a été installé sur l'appareil"
+                );
+
+
+                deferredPrompt = null;
+
+
+            }
+        );
+
+
+
+        /*
+         * =========================
+         * LIENS DES CARTES
+         * =========================
+         */
+
+        const cards =
+            document.querySelectorAll(
+                ".card"
+            );
+
+
+        cards.forEach(
+            function (card) {
+
+
+                card.addEventListener(
+                    "click",
+                    function (event) {
+
+
+                        const href =
+                            card.getAttribute(
+                                "href"
+                            );
+
+
+                        if (
+                            !href ||
+                            href === "#"
+                        ) {
+
+
+                            event.preventDefault();
+
+
+                        }
+
+
+                    }
+                );
+
+
+            }
+        );
+
+
+    }
+);
