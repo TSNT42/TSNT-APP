@@ -10,40 +10,37 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>TSNT</title>
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
 
     <meta
         name="description"
         content="Application officielle de Tous Solidaires Néo-Tuileries"
     >
 
-    <meta
-        name="theme-color"
-        content="#ffffff"
-    >
-
-    <!-- LOGO -->
     <link
         rel="icon"
         type="image/png"
-        href="logo.png?v=3"
+        href="logo.png?v=4"
     >
 
     <link
         rel="apple-touch-icon"
-        href="logo.png?v=3"
+        href="logo.png?v=4"
     >
 
-    <!-- PWA -->
     <link
         rel="manifest"
-        href="manifest.json?v=3"
+        href="manifest.json?v=4"
     >
 
-    <!-- CSS -->
+    <title>TSNT</title>
+
     <link
         rel="stylesheet"
-        href="style.css?v=3"
+        href="style.css?v=4"
     >
 
 </head>
@@ -51,190 +48,434 @@
 
 <body>
 
+    <div class="app">
 
-    <!-- =========================
-         HEADER
-    ========================== -->
 
-    <header class="header">
+        <!-- HEADER -->
 
-        <div class="header-logo">
+        <header class="header">
 
-            <img
-                src="logo.png?v=3"
-                alt="Logo TSNT"
-                class="logo"
+            <div class="logo">
+
+                <img
+                    class="logo-icon"
+                    src="logo.png?v=4"
+                    alt="Logo TSNT"
+                    style="
+                        object-fit: contain;
+                        padding: 5px;
+                    "
+                >
+
+                <div>
+
+                    <h1>
+                        TSNT
+                    </h1>
+
+                    <p>
+                        Tous Solidaires Néo-Tuileries
+                    </p>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- CONTENU -->
+
+        <main class="content">
+
+
+            <!-- ACCUEIL -->
+
+            <section
+                id="page-accueil"
+                class="page active-page"
             >
 
-        </div>
+
+                <section class="hero">
+
+                    <span class="badge">
+                        📅 PROCHAINE ACTIVITÉ
+                    </span>
 
 
-        <div class="header-text">
-
-            <h1>
-                TSNT
-            </h1>
-
-            <p>
-                Tous Solidaires Néo-Tuileries
-            </p>
-
-        </div>
-
-    </header>
+                    <h2
+                        id="prochaine-activite-titre"
+                    >
+                        Chargement...
+                    </h2>
 
 
+                    <p
+                        id="prochaine-activite-date"
+                        class="event-info"
+                    >
+                    </p>
 
-    <!-- =========================
-         CONTENU
-    ========================== -->
 
-    <main>
+                    <p
+                        id="prochaine-activite-lieu"
+                        class="event-info"
+                    >
+                    </p>
 
 
-        <!-- BIENVENUE -->
+                    <button
+                        id="prochaine-activite-bouton"
+                        class="primary-button"
+                        onclick="ouvrirPage('activites')"
+                    >
+                        Voir les activités
+                    </button>
 
-        <section class="welcome">
-
-            <h2>
-                Bienvenue sur TSNT 👋
-            </h2>
-
-            <p>
-                Retrouvez toutes les informations,
-                activités et actualités de
-                Tous Solidaires Néo-Tuileries.
-            </p>
-
-        </section>
+                </section>
 
 
 
-        <!-- CARTES -->
+                <section class="card">
 
-        <section class="cards">
+                    <div class="card-icon">
+                        📅
+                    </div>
+
+                    <div class="card-content">
+
+                        <h3>
+                            Nos activités
+                        </h3>
+
+
+                        <p>
+                            Découvrez les activités et
+                            événements proposés par TSNT.
+                        </p>
+
+
+                        <button
+                            class="secondary-button"
+                            onclick="ouvrirPage('activites')"
+                        >
+                            Voir les activités
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="card">
+
+                    <div class="card-icon">
+                        🤝
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+                            Rejoindre TSNT
+                        </h3>
+
+
+                        <p>
+                            Rejoignez l'association et
+                            participez à la vie du quartier.
+                        </p>
+
+
+                        <button
+                            class="secondary-button"
+                            onclick="ouvrirPage('adhesion')"
+                        >
+                            Adhérer
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
+                <section class="about">
+
+                    <h3>
+                        🏠 À propos de TSNT
+                    </h3>
+
+
+                    <p>
+                        Une association créée pour faire
+                        vivre le quartier des Tuileries
+                        à Mably, créer du lien et proposer
+                        des activités pour tous.
+                    </p>
+
+                </section>
+
+            </section>
+
 
 
             <!-- ACTIVITÉS -->
 
-            <a
-                href="#"
-                class="card"
+            <section
+                id="page-activites"
+                class="page"
             >
 
-                <div class="card-icon">
-                    📅
-                </div>
+                <h2>
+                    📅 Activités
+                </h2>
 
-                <h3>
-                    Activités
-                </h3>
 
-                <p>
-                    Découvrez les prochaines
-                    activités de l'association.
+                <p class="page-intro">
+
+                    Retrouvez toutes les activités
+                    et événements de TSNT.
+
                 </p>
 
-            </a>
+
+                <div id="liste-activites">
+
+                    <p class="page-intro">
+                        Chargement des activités...
+                    </p>
+
+                </div>
+
+            </section>
 
 
 
             <!-- ADHÉSION -->
 
-            <a
-                href="#"
-                class="card"
+            <section
+                id="page-adhesion"
+                class="page"
             >
 
-                <div class="card-icon">
-                    📝
-                </div>
+                <h2>
+                    🤝 Adhérer à TSNT
+                </h2>
 
-                <h3>
-                    Adhésion
-                </h3>
 
-                <p>
+                <p class="page-intro">
+
                     Rejoignez Tous Solidaires
                     Néo-Tuileries.
+
                 </p>
 
-            </a>
+
+                <section class="activity-card">
+
+                    <h3>
+                        Pourquoi adhérer ?
+                    </h3>
+
+
+                    <p>
+
+                        Participer aux activités,
+                        soutenir l'association et
+                        contribuer à la vie du quartier.
+
+                    </p>
+
+
+                    <button
+                        class="primary-button"
+                        onclick="ouvrirAdhesion()"
+                    >
+                        Adhérer maintenant
+                    </button>
+
+                </section>
+
+            </section>
 
 
 
-            <!-- ACTUALITÉS -->
+            <!-- PLUS -->
 
-            <a
-                href="#"
-                class="card"
+            <section
+                id="page-plus"
+                class="page"
             >
 
-                <div class="card-icon">
-                    📢
-                </div>
-
-                <h3>
-                    Actualités
-                </h3>
-
-                <p>
-                    Retrouvez les dernières
-                    informations de TSNT.
-                </p>
-
-            </a>
+                <h2>
+                    ☰ Plus
+                </h2>
 
 
+                <button
+                    class="menu-card"
+                    onclick="ouvrirQuiSommesNous()"
+                >
+                    👥 Qui sommes-nous ?
+                </button>
 
-            <!-- CONTACT -->
 
-            <a
-                href="#"
-                class="card"
+                <button
+                    class="menu-card"
+                    onclick="ouvrirReseauxSociaux()"
+                >
+                    📱 Nos réseaux sociaux
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="ouvrirContact()"
+                >
+                    📩 Nous contacter
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="ouvrirSite()"
+                >
+                    🌐 Notre site internet
+                </button>
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- MENU DU BAS -->
+
+        <nav class="bottom-nav">
+
+
+            <button
+                class="nav-item active"
+                id="nav-accueil"
+                onclick="ouvrirPage('accueil')"
             >
 
-                <div class="card-icon">
-                    📞
-                </div>
+                <span>
+                    🏠
+                </span>
 
-                <h3>
-                    Contact
-                </h3>
+                <small>
+                    Accueil
+                </small>
 
-                <p>
-                    Contactez facilement
-                    l'association.
-                </p>
-
-            </a>
-
-
-        </section>
-
-
-    </main>
+            </button>
 
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+            <button
+                class="nav-item"
+                id="nav-activites"
+                onclick="ouvrirPage('activites')"
+            >
 
-    <footer>
-
-        <p>
-            © 2026 Tous Solidaires Néo-Tuileries
-        </p>
-
-    </footer>
+                <span>
+                    📅
+                </span>
 
 
+                <small>
+                    Activités
+                </small>
 
-    <!-- JAVASCRIPT -->
+            </button>
 
-    <script src="app.js?v=3"></script>
 
+
+            <button
+                class="nav-item"
+                id="nav-adhesion"
+                onclick="ouvrirPage('adhesion')"
+            >
+
+                <span>
+                    🤝
+                </span>
+
+
+                <small>
+                    Adhésion
+                </small>
+
+            </button>
+
+
+
+            <button
+                class="nav-item"
+                id="nav-plus"
+                onclick="ouvrirPage('plus')"
+            >
+
+                <span>
+                    ☰
+                </span>
+
+
+                <small>
+                    Plus
+                </small>
+
+            </button>
+
+
+        </nav>
+
+
+    </div>
+
+
+
+    <script src="app.js?v=4"></script>
+
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener(
+                "load",
+                function() {
+
+                    navigator.serviceWorker.register(
+                        "./sw.js"
+                    )
+                    .then(function() {
+
+                        console.log(
+                            "Service worker TSNT activé."
+                        );
+
+                    })
+                    .catch(function(error) {
+
+                        console.error(
+                            "Erreur service worker :",
+                            error
+                        );
+
+                    });
+
+                }
+            );
+
+        }
+
+    </script>
 
 </body>
 
