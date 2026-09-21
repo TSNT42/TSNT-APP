@@ -21,26 +21,15 @@
     >
 
     <link
-        rel="icon"
-        type="image/png"
-        href="logo.png?v=4"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        href="logo.png?v=4"
-    >
-
-    <link
         rel="manifest"
-        href="manifest.json?v=4"
+        href="manifest.json"
     >
 
     <title>TSNT</title>
 
     <link
         rel="stylesheet"
-        href="style.css?v=4"
+        href="style.css"
     >
 
 </head>
@@ -57,15 +46,21 @@
 
             <div class="logo">
 
-                <img
-                    class="logo-icon"
-                    src="logo.png?v=4"
-                    alt="Logo TSNT"
-                    style="
-                        object-fit: contain;
-                        padding: 5px;
-                    "
-                >
+                <div class="logo-icon">
+
+                    <img
+                        src="logo.png"
+                        alt="Logo TSNT"
+                        style="
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                            border-radius: 12px;
+                        "
+                    >
+
+                </div>
+
 
                 <div>
 
@@ -144,6 +139,7 @@
                         📅
                     </div>
 
+
                     <div class="card-content">
 
                         <h3>
@@ -203,6 +199,46 @@
 
 
 
+                <!-- INSTALLATION APPLICATION -->
+
+                <section
+                    class="card"
+                    id="carte-installation"
+                >
+
+                    <div class="card-icon">
+                        📱
+                    </div>
+
+
+                    <div class="card-content">
+
+                        <h3>
+                            L'application TSNT
+                        </h3>
+
+
+                        <p>
+                            Retrouvez facilement les activités
+                            et les actualités de l'association
+                            directement sur votre téléphone.
+                        </p>
+
+
+                        <button
+                            id="bouton-installation"
+                            class="primary-button"
+                            onclick="installerApplication()"
+                        >
+                            📲 Ajouter TSNT à mon écran d'accueil
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+
                 <section class="about">
 
                     <h3>
@@ -236,10 +272,8 @@
 
 
                 <p class="page-intro">
-
                     Retrouvez toutes les activités
                     et événements de TSNT.
-
                 </p>
 
 
@@ -268,10 +302,8 @@
 
 
                 <p class="page-intro">
-
                     Rejoignez Tous Solidaires
                     Néo-Tuileries.
-
                 </p>
 
 
@@ -283,11 +315,9 @@
 
 
                     <p>
-
                         Participer aux activités,
                         soutenir l'association et
                         contribuer à la vie du quartier.
-
                     </p>
 
 
@@ -387,7 +417,6 @@
                     📅
                 </span>
 
-
                 <small>
                     Activités
                 </small>
@@ -405,7 +434,6 @@
                 <span>
                     🤝
                 </span>
-
 
                 <small>
                     Adhésion
@@ -425,7 +453,6 @@
                     ☰
                 </span>
 
-
                 <small>
                     Plus
                 </small>
@@ -440,7 +467,7 @@
 
 
 
-    <script src="app.js?v=4"></script>
+    <script src="app.js"></script>
 
 
     <script>
